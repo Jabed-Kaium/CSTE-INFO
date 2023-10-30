@@ -2,7 +2,7 @@
 <p>This is a web application based on Department of Computer Science and Telecommunication Engineering, NSTU. <br> Viewers can see necessary information and download files related to the department.</p>
 
 #### Technology used
-Spring Boot, Spring Data JPA, Thymeleaf, HTML, CSS, JavaScript, MySQL
+<strong> Spring Boot, Spring Data JPA, Thymeleaf, HTML, CSS, JavaScript, MySQL </strong>
 
 #### Key Features
 <ul>
