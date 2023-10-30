@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+    <!--insert top-heeader -->
+    <header th:insert="~{main-header.html :: main-header}"></header>
+
+    <!-- insert navbar -->
+    <header th:insert="~{navbar.html :: navbar}"></header>
+
+    <!-- heading -->
+    <div class="container">
+        <h4 class="text-center pt-5">Download Important Resourses</h4>
+    </div>
+
+    <div class="container">
+        <div class="book-container py-5 px-4">
+            <div class="row">
+                <div class="col-4 py-3" th:each="resource : ${resources}">
+                    <div class="card w-50 mx-auto" style="width: 18rem;">
+                        <img th:src="@{'/resource/images/' + ${resource.imageName}}" alt="resource image">
+                        <div class="card-body">
+                          <h5 class="card-title text-center">[[*{resource.resourceName}]]</h5>
+                          <a class="btn btn-sm btn-primary mx-4 my-3" th:href="@{/downloadResource/{fileName}(fileName = ${resource.fileName})}">Download</a>
+                          <!-- <a class="btn btn-sm btn-primary mx-4 my-3" th:href="@{'/downloadBook?id=' + ${book.id}}">Download</a> -->
+                          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- insert footer -->
+    <footer th:insert="~{footer.html :: footer}"></footer>
+
+    <script src="https://kit.fontawesome.com/e959a87dd8.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

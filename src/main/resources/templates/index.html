@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+
+    <!--insert top-heeader -->
+    <header th:insert="~{main-header.html :: main-header}"></header>
+
+    <!-- insert navbar -->
+    <header th:insert="~{navbar.html :: navbar}"></header>
+
+    <div class="container">
+      <h2 class="deptHeading text-center mt-5 py-3 px-5">Welcome to <br> Department of Computer Science and Telecommunication Engineering</h2>
+    </div>
+
+    <h4 class="text-center text-info-emphasis pt-5">Events</h4>
+
+    <!-- carousel section -->
+    <section id="slide-section">
+        <div class="home-slide px-4 pt-3 pb-5 mx-auto">
+            <div id="home-slide" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item" data-bs-interval="3000" th:each="featured : ${featuredList}" th:classappend ="${featuredStat.first} ? active : ''">
+                    <img th:src="@{'/images/slide-images/' + ${featured.imageName}}" class="d-block w-100" height="500" alt="event picture">
+                    <div class="carousel-caption d-none d-md-block">
+                        <div class="bg-warning text-dark px-2 py-2 rounded-4">
+                            <h5>[[*{featured.caption}]]</h5>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#home-slide" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#home-slide" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        </div>
+    </section>
+
+    <!-- overview of department -->
+    <section id="overview">
+      <div class="container">
+
+        <h4 class="text-info-emphasis text-center py-5">Message From The Chairman</h4>
+        <div class="message text-center px-5">
+            <img class="d-block mx-auto rounded-circle" th:src="@{/images/teacher-images/asad.jpg}" height="150" width="150" alt="chairman image">
+            <br>
+            <h5>Dr. Md. Ashadun Nobi</h5>
+            <h6>Professor and Chairman</h6>
+            <h6>Department of Computer Science and Telecommunication Engineering</h6>
+            <br>
+            <p>Welcome to Computer Science and Telecommunication Engineering department. We have good number of faculty resources who doing excellent research as well as academic jobs. Each year we accomodate 50 students and fortunately we always get the best students. We tried out best to maintain good academic environment and practical classes. Monthly we arranged programming contest, as a result, we doing better in job sector and competitive programming contest.</p>
+        </div>
+
+        <h4 class="text-info-emphasis text-center py-5">Our Mission and Vision</h4>
+        <div class="missionAndVision text-center px-5">
+            <p>The vision of the Department of Computer Science and Telecommunication Engineering (CSTE) is to enable innovation through research, advance educational programs in CSE and ICT fields and facilitate enrichment of CSE human resources- the students, faculty and staff, thereby establishing itself as a center of excellence at the national and international level.</p>
+            <p>To provide quality education primarily in the undergraduate level in CSE and allied fields and train the students to effectively apply this education to solve real-world problems, thereby contributing towards the benefit of our country and the humanity.</p>
+            <p>To conduct high quality state of the art research primarily at the postgraduate level with an aim to advance knowledge of CSE and ICT fields and cultivate human talent for the welfare of mankind and apply this knowledge to support and influence national and international agenda.</p>
+            <p>To guide the students develop themselves as human beings with high ethical and moral values. To enrich our students potential, make them a life-long learner and finally equip and prepare them to face the complex challenges of the 21st century and beyond.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- insert footer -->
+    <footer th:insert="~{footer.html :: footer}"></footer>
+
+    <script src="https://kit.fontawesome.com/e959a87dd8.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

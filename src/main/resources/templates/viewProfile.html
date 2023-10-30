@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+    <!--insert top-heeader -->
+    <header th:insert="~{main-header.html :: main-header}"></header>
+
+    <!-- insert navbar -->
+    <header th:insert="~{navbar.html :: navbar}"></header>
+
+    <div class="container">
+        <div class="row py-5 px-5">
+            <div class="col-md-3">
+                <img th:src="@{'/images/teacher-images/' + ${teacher.imageName}}" height="200" width="200" alt="profile picture">
+            </div>
+            <div class="col-md-9">
+                <h3>[[*{teacher.name}]]</h3>
+                <p><i class="fa-solid fa-building-columns"></i> [[*{teacher.designation}]]</p>
+                <p><i class="fa-solid fa-graduation-cap"></i> [[*{teacher.degree}]]</p>
+                <p><i class="fa-solid fa-envelope"></i> [[*{teacher.email}]]</p>
+                <p><i class="fa-solid fa-phone"></i> [[*{teacher.contact}]]</p>
+                <p><i class="fa-solid fa-droplet"></i> Blood Group: [[*{teacher.bloodGroup}]]</p>
+                <p><i class="fa-solid fa-calendar-days"></i> Joining Date: [[*{teacher.dateOfJoining}]]</p>
+                <p><i class="fa-solid fa-book"></i> Research Interest: <br> [[*{teacher.researchInterest}]]</p>
+            </div>
+        </div>
+        <div class="row px-5">
+            <h5>About [[*{teacher.name}]]</h5>
+            <p>[[*{teacher.description}]]</p>
+        </div>
+    </div>
+
+    <!-- insert footer -->
+    <footer th:insert="~{footer.html :: footer}"></footer>
+
+    <script src="https://kit.fontawesome.com/e959a87dd8.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

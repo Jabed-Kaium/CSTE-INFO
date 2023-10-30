@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+
+        <!--insert top-heeader -->
+        <header th:insert="~{main-header.html :: main-header}"></header>
+
+        <h1 class="px-5 pt-5">
+            ADMIN
+        </h1>
+
+        <!-- menu item -->
+        <div class="row">
+            <div class="col-md-3">
+                <ul class="nav nav-pills d-block p-lg-5 fs-5">
+                    <li class="nav-item bg-info-subtle">
+                        <a href="#teacher" class="nav-link text-dark" onclick="hideShowTeacher()">Teacher</a>
+                    </li>
+                    <li class="nav-item bg-info-subtle">
+                        <a href="#syllabus" class="nav-link text-dark" onclick="hideShowSyllabus()">Syllabus</a>
+                    </li>
+                    <li class="nav-item bg-info-subtle">
+                        <a href="#book" class="nav-link text-dark" onclick="hideShowBook()">Book</a>
+                    </li>
+                    <li class="nav-item bg-info-subtle">
+                        <a href="#resource" class="nav-link text-dark" onclick="hideShowResource()">Resource</a>
+                    </li>
+                    <li class="nav-item bg-info-subtle">
+                        <a href="#notice" class="nav-link text-dark" onclick="hideShowNotice()">Notice</a>
+                    </li>
+                    <li class="nav-item bg-info-subtle">
+                        <a href="#classSchedule" class="nav-link text-dark" onclick="hideShowClassSchedule()">Class Schedule</a>
+                    </li>
+                    <li class="nav-item bg-info-subtle">
+                        <a href="#featured" class="nav-link text-dark" onclick="hideShowFeatured()">Featured</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+
+                <!-- menu teacher -->
+                <div id="teacher" class="menu menu-teacher">
+                    <div class="container px-4 py-5">
+                        <h1>Faculy Members</h1>
+                
+                        <!-- add teacher -->
+                        <div class="container py-3">
+                            <!-- add button -->
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary float-start" data-bs-toggle="modal" data-bs-target="#exampleModalAddTeacher">
+                                    Add Teacher
+                                </button>
+                                        
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalAddTeacher" tabindex="-1" aria-labelledby="exampleModalLabelAddTeacher" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelAddTeacher">Add Teacher</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                            <div class="modal-body">
+                                                <form action="/addTeacher" method="post" enctype="multipart/form-data">
+                                                    <div class="form-group">
+                                                        <label for="name">Name</label>
+                                                        <input type="text" id="name" name="tName" class="form-control">
+                                                        <label for="designation">Designation</label>
+                                                        <input type="text" id="designation" name="tDesignation" class="form-control">
+                                                        <label for="degree">Degree</label>
+                                                        <input type="text" id="degree" name="degree" class="form-control">
+                                                        <label for="email">Email</label>
+                                                        <input type="text" id="email" name="email" class="form-control">
+                                                        <label for="contact">Contact</label>
+                                                        <input type="text" id="contact" name="contact" class="form-control">
+                                                        <label for="bloodGroup">Blood Group</label>
+                                                        <input type="text" id="bloodGroup" name="bloodGroup" class="form-control">
+                                                        <label for="dateOfJoining">Teacher Designation</label>
+                                                        <input type="date" id="dateOfJoining" name="dateOfJoining" class="form-control">
+                                                        <label for="researchInterest">Research Interest</label>
+                                                        <input type="text" id="researchInterest" name="researchInterest" class="form-control">
+                                                        <label for="description">Description</label>
+                                                        <input type="textarea" id="description" name="description" class="form-control">
+                                                        <div class="mb-3">
+                                                            <label for="formFile" class="form-label">Choose an image</label>
+                                                            <input class="form-control" type="file" id="formFile" name="file">
+                                                        </div>
+                                                    <br>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- teahcer table -->
+                        <div class="px-2 py-5">
+                            <table class="table">
+                                <thead>
+                                  <tr class="table-dark">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Designation</th>
+                                    <th scope="col">Degree</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Contact</th>
+                                    <th scope="col">Blood Group</th>
+                                    <th scope="col">Date Of Joining</th>
+                                    <th scope="col">Research Interest</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Delete</th>
+                                    <th scope="col">Change Details</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr th:each="teacher : ${teachers}">
+                                    <th scope="row">[[*{teacher.id}]]</th>
+                                    <td><img th:src="@{'/images/teacher-images/' + ${teacher.imageName}}" height="100" width="100" alt="teacher image"></td>
+                                    <!-- <td><img th:src="*{'data:image/jpeg;base64,' + {teacher.image}}" height="100" width="100" alt="profile picture"></td> -->
+                                    <td>[[*{teacher.name}]]</td>
+                                    <td>[[*{teacher.designation}]]</td>
+                                    <td>[[*{teacher.degree}]]</td>
+                                    <td>[[*{teacher.email}]]</td>
+                                    <td>[[*{teacher.contact}]]</td>
+                                    <td>[[*{teacher.bloodGroup}]]</td>
+                                    <td>[[*{teacher.dateOfJoining}]]</td>
+                                    <!-- show only substring of researchInterest of length 100 -->
+                                    <td>[[${#strings.abbreviate(teacher.researchInterest, 100)}]]</td>
+                                    <!-- show only substring of description of length 100 -->
+                                    <td>[[${#strings.abbreviate(teacher.description, 100)}]]</td>
+                                    <td><a th:href="@{/deleteTeacher/{id}(id = ${teacher.id})}" class="btn btn-danger">Delete</a></td>
+                                    <td>
+                                        <!-- Update button -->
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModalTeacher' + *{teacher.id}">
+                                            Change
+                                        </button>
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" th:id="*{'exampleModalTeacher' + {teacher.id}}" tabindex="-1" aria-labelledby="exampleModalLabelTeacher" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelTeacher">Change</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/updateTeacher" method="post" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label for="id" class="pt-2">Id</label>
+                                                            <input type="number" name="newId" id="id" class="form-control" th:value="*{teacher.id}">
+                                                            <label for="name" class="pt-2">Name</label>
+                                                            <input type="text" name="newName" id="name" class="form-control" th:value="*{teacher.name}">
+                                                            <label for="designation" class="pt-2">Designation</label>
+                                                            <input type="text" name="newDesignation" id="designation" class="form-control" th:value="*{teacher.designation}">
+                                                            <label for="newDegree" class="pt-2">Degree</label>
+                                                            <input type="text" name="newDegree" id="newDegree" class="form-control" th:value="*{teacher.degree}">
+                                                            <label for="newEmail" class="pt-2">Email</label>
+                                                            <input type="text" name="newEmail" id="newEmail" class="form-control" th:value="*{teacher.email}">
+                                                            <label for="newContact" class="pt-2">Contact</label>
+                                                            <input type="text" name="newContact" id="newContact" class="form-control" th:value="*{teacher.contact}">
+                                                            <label for="newBloodGroup" class="pt-2">Blood Group</label>
+                                                            <input type="text" name="newBloodGroup" id="newBloodGroup" class="form-control" th:value="*{teacher.bloodGroup}">
+                                                            <label for="newDateOfJoining" class="pt-2">Date Of Joining</label>
+                                                            <input type="date" name="newDateOfJoining" id="newDateOfJoining" class="form-control" th:value="*{teacher.dateOfJoining}">
+                                                            <label for="newResearchInterest" class="pt-2">Research Interest</label>
+                                                            <input type="text" name="newResearchInterest" id="newResearchInterest" class="form-control" th:value="*{teacher.researchInterest}">
+                                                            <label for="newDescription" class="pt-2">Description</label>
+                                                            <input type="textarea" name="newDescription" id="newDescription" class="form-control" th:value="*{teacher.description}">
+                                                            <div class="mb-3">
+                                                                <label for="formFile" class="form-label pt-2">Choose an image</label>
+                                                                <input class="form-control" type="file" id="formFile" name="newFile" >
+                                                            </div>
+                                                            <br>
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- menu syllabus -->
+                <div id="syllabus" class="menu">
+                    <div class="container px-4 py-5">
+                        <h1>Syllabus</h1>
+
+                        <!-- add syllabus -->
+                        <div class="container py-3">
+                            <!-- add button -->
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary float-start" data-bs-toggle="modal" data-bs-target="#exampleModalAddSyllabus">
+                                    Add Syllabus
+                                </button>
+                                        
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalAddSyllabus" tabindex="-1" aria-labelledby="exampleModalLabelAddSyllabus" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelAddSyllabus">Add Syllabus</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                            <div class="modal-body">
+                                                <form action="/addSyllabus" method="post" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label for="name">Batch Name</label>
+                                                    <input type="text" id="name" name="batchName" class="form-control">
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">Choose file</label>
+                                                        <input class="form-control" type="file" id="formFile" name="file">
+                                                    </div>
+                                                    <br>
+                                                  <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- syllabus table -->
+                        <div class="px-2 py-5">
+                            <table class="table">
+                                <thead>
+                                  <tr class="table-dark">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Batch Name</th>
+                                    <th scope="col">File Name</th>
+                                    <th scope="col">Delete</th>
+                                    <th scope="col">Change Details</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr th:each="syllabus : ${syllabuses}">
+                                    <th scope="row">[[*{syllabus.id}]]</th>
+                                    <td>[[*{syllabus.batchName}]]</td>
+                                    <td>[[*{syllabus.fileName}]]</td>
+                                    <td><a th:href="@{/deleteSyllabus/{id}(id = ${syllabus.id})}" class="btn btn-danger">Delete</a></td>
+                                    <td>
+                                        <!-- Update button -->
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModalSyllabus' + *{syllabus.id}">
+                                            Change
+                                        </button>
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" th:id="*{'exampleModalSyllabus' + {syllabus.id}}" tabindex="-1" aria-labelledby="exampleModalLabelSyllabus" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelSyllabus">Change</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/updateSyllabus" method="post" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label for="id" class="pt-2">Id</label>
+                                                            <input type="number" name="newId" id="id" class="form-control" th:value="*{syllabus.id}">
+                                                            <label for="name" class="pt-2">Batch Name</label>
+                                                            <input type="text" name="newBatchName" id="name" class="form-control" th:value="*{syllabus.batchName}">
+                                                            <div class="mb-3">
+                                                                <label for="formFile" class="form-label pt-2">Choose file</label>
+                                                                <input class="form-control" type="file" id="formFile" name="newFile" >
+                                                            </div>
+                                                            <br>
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- menu book -->
+                <div id="book" class="menu">
+                    <div class="container px-4 py-5">
+                        <h1>Books</h1>
+
+                        <!-- add book -->
+                        <div class="container py-3">
+                            <!-- add button -->
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary float-start" data-bs-toggle="modal" data-bs-target="#exampleModalAddBook">
+                                    Add Book
+                                </button>
+                                        
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalAddBook" tabindex="-1" aria-labelledby="exampleModalLabelAddBook" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelAddBook">Add Book</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                            <div class="modal-body">
+                                                <form action="/addBook" method="post" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label for="bookName">Book Name</label>
+                                                    <input type="text" id="bookName" name="bookName" class="form-control">
+                                                    <div class="mb-3">
+                                                        <label for="imageFile" class="form-label">Choose Image</label>
+                                                        <input class="form-control" type="file" id="imageFile" name="imageFile">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">Choose file</label>
+                                                        <input class="form-control" type="file" id="formFile" name="file">
+                                                    </div>
+                                                    <br>
+                                                  <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- book table -->
+                        <div class="px-2 py-5">
+                            <table class="table">
+                                <thead>
+                                  <tr class="table-dark">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Book Image</th>
+                                    <th scope="col">Book Name</th>
+                                    <th scope="col">File Name</th>
+                                    <th scope="col">Delete</th>
+                                    <th scope="col">Change Details</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr th:each="book : ${books}">
+                                    <th scope="row">[[*{book.id}]]</th>
+                                    <td><img th:src="@{'/book/images/' + ${book.imageName}}" height="100" width="100" alt="book image"></td>
+                                    <td>[[*{book.bookName}]]</td>
+                                    <td>[[*{book.fileName}]]</td>
+                                    <td><a th:href="@{/deleteBook/{id}(id = ${book.id})}" class="btn btn-danger">Delete</a></td>
+                                    <td>
+                                        <!-- Update button -->
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModalBook' + *{book.id}">
+                                            Change
+                                        </button>
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" th:id="*{'exampleModalBook' + {book.id}}" tabindex="-1" aria-labelledby="exampleModalLabelBook" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelBook">Change</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/updateBook" method="post" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label for="id" class="pt-2">Id</label>
+                                                            <input type="number" name="newId" id="id" class="form-control" th:value="*{book.id}">
+                                                            <label for="newBookName" class="pt-2">Book Name</label>
+                                                            <input type="text" name="newBookName" id="newBookName" class="form-control" th:value="*{book.bookName}">
+                                                            <div class="mb-3">
+                                                                <label for="imageFile" class="form-label pt-2">Choose image</label>
+                                                                <input class="form-control" type="file" id="imageFile" name="newImageFile" >
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="formFile" class="form-label pt-2">Choose file</label>
+                                                                <input class="form-control" type="file" id="formFile" name="newFile" >
+                                                            </div>
+                                                            <br>
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- menu resource -->
+                <div id="resource" class="menu">
+                    <div class="container px-4 py-5">
+                        <h1>Resources</h1>
+
+                        <!-- add resource -->
+                        <div class="container py-3">
+                            <!-- add button -->
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary float-start" data-bs-toggle="modal" data-bs-target="#exampleModalAddResource">
+                                    Add Resource
+                                </button>
+                                        
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalAddResource" tabindex="-1" aria-labelledby="exampleModalLabelAddResource" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelAddResource">Add Resource</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                            <div class="modal-body">
+                                                <form action="/addResource" method="post" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label for="resourceName">Resource Name</label>
+                                                    <input type="text" id="resourceName" name="resourceName" class="form-control">
+                                                    <div class="mb-3">
+                                                        <label for="resourceFile" class="form-label">Choose image</label>
+                                                        <input class="form-control" type="file" id="resourceFile" name="resourceFile">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">Choose file</label>
+                                                        <input class="form-control" type="file" id="formFile" name="file">
+                                                    </div>
+                                                    <br>
+                                                  <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- resource table -->
+                        <div class="px-2 py-5">
+                            <table class="table">
+                                <thead>
+                                  <tr class="table-dark">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Resource Image</th>
+                                    <th scope="col">Resource Name</th>
+                                    <th scope="col">File Name</th>
+                                    <th scope="col">Delete</th>
+                                    <th scope="col">Change Details</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr th:each="resource : ${resources}">
+                                    <th scope="row">[[*{resource.id}]]</th>
+                                    <td><img th:src="@{'/resource/images/' + ${resource.imageName}}" height="100" width="100" alt="resource image"></td>
+                                    <td>[[*{resource.resourceName}]]</td>
+                                    <td>[[*{resource.fileName}]]</td>
+                                    <td><a th:href="@{/deleteResource/{id}(id = ${resource.id})}" class="btn btn-danger">Delete</a></td>
+                                    <td>
+                                        <!-- Update button -->
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModalResource' + *{resource.id}">
+                                            Change
+                                        </button>
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" th:id="*{'exampleModalResource' + {resource.id}}" tabindex="-1" aria-labelledby="exampleModalLabelResource" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelResource">Change</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/updateResource" method="post" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label for="id" class="pt-2">Id</label>
+                                                            <input type="number" name="newId" id="id" class="form-control" th:value="*{resource.id}">
+                                                            <label for="newResourceName" class="pt-2">Resource Name</label>
+                                                            <input type="text" name="newResourceName" id="newResourceName" class="form-control" th:value="*{resource.resourceName}">
+                                                            <div class="mb-3">
+                                                                <label for="newResourceImageFile" class="form-label pt-2">Choose image</label>
+                                                                <input class="form-control" type="file" id="newResourceImageFile" name="newResourceImageFile" >
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="formFile" class="form-label pt-2">Choose file</label>
+                                                                <input class="form-control" type="file" id="formFile" name="newFile" >
+                                                            </div>
+                                                            <br>
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- menu notice -->
+                <div id="notice" class="menu">
+                    <div class="container px-4 py-5">
+                        <h1>Notice</h1>
+
+                        <!-- add notice -->
+                        <div class="container py-3">
+                            <!-- add button -->
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary float-start" data-bs-toggle="modal" data-bs-target="#exampleModalAddNotice">
+                                    Add Notice
+                                </button>
+                                        
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalAddNotice" tabindex="-1" aria-labelledby="exampleModalLabelAddNotice" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelAddNotice">Add Notice</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                            <div class="modal-body">
+                                                <form action="/addNotice" method="post" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <div class="mb-3">
+                                                        <label for="imageFile" class="form-label">Choose image file</label>
+                                                        <input class="form-control" type="file" id="imageFile" name="imageFile">
+                                                    </div>
+                                                    <label for="description">Description</label>
+                                                    <input type="text" id="description" name="description" class="form-control">
+                                                    <br>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- notice table -->
+                        <div class="px-2 py-5">
+                            <table class="table">
+                                <thead>
+                                <tr class="table-dark">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Notice Image</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Delete</th>
+                                    <th scope="col">Change Details</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="notice : ${notices}">
+                                    <th scope="row">[[*{notice.id}]]</th>
+                                    <td><img th:src="@{'/notice/' + ${notice.imageName}}" height="100" width="100" alt="book image"></td>
+                                    <td>[[*{notice.description}]]</td>
+                                    <td><a th:href="@{/deleteNotice/{id}(id = ${notice.id})}" class="btn btn-danger">Delete</a></td>
+                                    <td>
+                                        <!-- Update button -->
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModalNotice' + *{notice.id}">
+                                            Change
+                                        </button>
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" th:id="*{'exampleModalNotice' + {notice.id}}" tabindex="-1" aria-labelledby="exampleModalLabelNotice" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelNotice">Change</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/updateNotice" method="post" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label for="id" class="pt-2">Id</label>
+                                                            <input type="number" name="newId" id="id" class="form-control" th:value="*{notice.id}">
+                                                            <div class="mb-3">
+                                                                <label for="imageFile" class="form-label pt-2">Choose image file</label>
+                                                                <input class="form-control" type="file" id="imageFile" name="newImageFile" >
+                                                            </div>
+                                                            <label for="newDescription" class="pt-2">Description</label>
+                                                            <input type="text" name="newDescription" id="newDescription" class="form-control" th:value="*{notice.description}">
+                                                            <br>
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- menu class schedule -->
+                <div id="classSchedule" class="menu">
+                    <div class="container px-4 py-5">
+                        <h1>Class Schedule</h1>
+
+                        <!-- add class schedule -->
+                        <div class="container py-3">
+                            <!-- add button -->
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary float-start" data-bs-toggle="modal" data-bs-target="#exampleModalAddClassSchedule">
+                                    Add Class Schedule
+                                </button>
+                                        
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalAddClassSchedule" tabindex="-1" aria-labelledby="exampleModalLabelAddClassSchedule" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelAddClassSchedule">Add Class Schedule</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                            <div class="modal-body">
+                                                <form action="/addClassSchedule" method="post" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <div class="mb-3">
+                                                        <label for="imageFile" class="form-label">Choose image file</label>
+                                                        <input class="form-control" type="file" id="imageFile" name="imageFile">
+                                                    </div>
+                                                    <label for="batchName">Batch Name</label>
+                                                    <input type="text" id="batchName" name="batchName" class="form-control">
+                                                    <br>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- Class Schedule table -->
+                        <div class="px-2 py-5">
+                            <table class="table">
+                                <thead>
+                                <tr class="table-dark">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Class Schedule Image</th>
+                                    <th scope="col">Batch Name</th>
+                                    <th scope="col">Delete</th>
+                                    <th scope="col">Change Details</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="classSchedule : ${classSchedules}">
+                                    <th scope="row">[[*{classSchedule.id}]]</th>
+                                    <td><img th:src="@{'/class-schedule/' + ${classSchedule.imageName}}" height="100" width="100" alt="class schedule image"></td>
+                                    <td>[[*{classSchedule.batchName}]]</td>
+                                    <td><a th:href="@{/deleteClassSchedule/{id}(id = ${classSchedule.id})}" class="btn btn-danger">Delete</a></td>
+                                    <td>
+                                        <!-- Update button -->
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModalClassSchedule' + *{classSchedule.id}">
+                                            Change
+                                        </button>
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" th:id="*{'exampleModalClassSchedule' + {classSchedule.id}}" tabindex="-1" aria-labelledby="exampleModalLabelClassSchedule" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelClassSchedule">Change</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/updateClassSchedule" method="post" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label for="id" class="pt-2">Id</label>
+                                                            <input type="number" name="newId" id="id" class="form-control" th:value="*{classSchedule.id}">
+                                                            <div class="mb-3">
+                                                                <label for="imageFile" class="form-label pt-2">Choose image file</label>
+                                                                <input class="form-control" type="file" id="imageFile" name="newImageFile" >
+                                                            </div>
+                                                            <label for="newBatch" class="pt-2">Batch</label>
+                                                            <input type="text" name="newBatch" id="newBatch" class="form-control" th:value="*{classSchedule.batchName}">
+                                                            <br>
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- menu featured -->
+                <div id="featured" class="menu">
+                    <div class="container px-4 py-5">
+                        <h1>Featured</h1>
+
+                        <!-- add featured event -->
+                        <div class="container py-3">
+                            <!-- add button -->
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary float-start" data-bs-toggle="modal" data-bs-target="#exampleModalAddFeatured">
+                                    Add Featured Event
+                                </button>
+                                        
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalAddFeatured" tabindex="-1" aria-labelledby="exampleModalLabelAddFeatured" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelAddFeatured">Add Featured Event</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                            <div class="modal-body">
+                                                <form action="/addFeatured" method="post" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <div class="mb-3">
+                                                        <label for="imageFile" class="form-label">Choose image file</label>
+                                                        <input class="form-control" type="file" id="imageFile" name="imageFile">
+                                                    </div>
+                                                    <label for="caption">Caption</label>
+                                                    <input type="text" id="caption" name="caption" class="form-control">
+                                                    <br>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <!-- Featured Evnet table -->
+                        <div class="px-2 py-5">
+                            <table class="table">
+                                <thead>
+                                <tr class="table-dark">
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Featured Event Image</th>
+                                    <th scope="col">Caption</th>
+                                    <th scope="col">Delete</th>
+                                    <th scope="col">Change Details</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="featured : ${featuredList}">
+                                    <th scope="row">[[*{featured.id}]]</th>
+                                    <td><img th:src="@{'/images/slide-images/' + ${featured.imageName}}" height="100" width="100" alt="featured event image"></td>
+                                    <td>[[*{featured.caption}]]</td>
+                                    <td><a th:href="@{/deleteFeatured/{id}(id = ${featured.id})}" class="btn btn-danger">Delete</a></td>
+                                    <td>
+                                        <!-- Update button -->
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModalFeatured' + *{featured.id}">
+                                            Change
+                                        </button>
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" th:id="*{'exampleModalFeatured' + {featured.id}}" tabindex="-1" aria-labelledby="exampleModalLabelFeatured" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabelFeatured">Change</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/updateFeatured" method="post" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label for="id" class="pt-2">Id</label>
+                                                            <input type="number" name="newId" id="id" class="form-control" th:value="*{featured.id}">
+                                                            <div class="mb-3">
+                                                                <label for="imageFile" class="form-label pt-2">Choose image file</label>
+                                                                <input class="form-control" type="file" id="imageFile" name="newImageFile" >
+                                                            </div>
+                                                            <label for="newCaption" class="pt-2">Caption</label>
+                                                            <input type="text" name="newCaption" id="newCaption" class="form-control" th:value="*{featured.caption}">
+                                                            <br>
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    
+    <script type="text/javascript" th:src="@{/js/admin.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
