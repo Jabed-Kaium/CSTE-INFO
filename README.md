@@ -33,14 +33,16 @@ Add, Update and Delete
 
 ![faculty members](./demo_screenshot/2.png)
 
-![syllabus](./demo_screenshot/3.png)
+![profile](./demo_screenshot/3.png)
 
-![class routine](./demo_screenshot/4.png)
+![syllabus](./demo_screenshot/4.png)
 
-![books](./demo_screenshot/5.png)
+![class routine](./demo_screenshot/5.png)
 
-![notice board](./demo_screenshot/6.png)
+![books](./demo_screenshot/6.png)
 
-![resources](./demo_screenshot/7.png)
+![notice board](./demo_screenshot/7.png)
 
-![admin](./demo_screenshot/8.png)
+![resources](./demo_screenshot/8.png)
+
+![admin](./demo_screenshot/9.png)
